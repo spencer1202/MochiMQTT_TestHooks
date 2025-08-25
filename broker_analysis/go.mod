@@ -1,4 +1,4 @@
-module github.com/spencer1202/broker_analysis
+module github.com/spencer1202/MochiMQTT_TestHooks/broker_analysis
 
 go 1.21
 
