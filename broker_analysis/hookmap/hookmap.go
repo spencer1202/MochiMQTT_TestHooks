@@ -33,7 +33,7 @@ func showPacket(pk packets.Packet) {
 	case "Connect":
 		fmt.Printf(" UsernameFlag %v\tUsername: %s\tUserID: %s\n",
 			pk.Connect.UsernameFlag, string(pk.Connect.Username), pk.Connect.ClientIdentifier)
-		fmt.Printf(" PasswordFlag %v\tPassword: %s",
+		fmt.Printf(" PasswordFlag %v\tPassword: %s\n",
 			pk.Connect.PasswordFlag, string(pk.Connect.Password))
 	case "Publish":
 		fmt.Printf(" Topic %s\n", pk.TopicName)
