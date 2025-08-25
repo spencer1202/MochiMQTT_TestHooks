@@ -85,7 +85,7 @@ func (h TestHook) OnSubscribed(cl *mqtt.Client, pk packets.Packet, reasonCodes [
 
 // OnPublish
 func (h TestHook) OnPublish(cl *mqtt.Client, pk packets.Packet) (packets.Packet, error) {
-	fmt.Println("*** HOOK: OnSubscribed ***")
+	fmt.Println("*** HOOK: OnPublish ***")
 	showClient(cl)
 	showPacket(pk)
 	return pk, nil
