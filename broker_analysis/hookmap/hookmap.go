@@ -27,7 +27,7 @@ func (h TestHook) Provides(b byte) bool {
 // Show Packet
 func showPacket(pk packets.Packet) {
 	packetType := packets.PacketNames[pk.FixedHeader.Type]
-	fmt.Printf("Show Packet: type %v\n", packetType)
+	fmt.Printf("Packet: %v\n", packetType)
 
 	switch packetType {
 	case "Connect":
@@ -42,18 +42,18 @@ func showPacket(pk packets.Packet) {
 
 // Show Client
 func showClient(cl *mqtt.Client) {
-	fmt.Println("Show Client")
+	fmt.Printf("Client: ")
 	if cl == nil {
 		fmt.Println(" no client")
 	} else {
-		fmt.Printf(" Username: %s\tUserID: %s\n",
+		fmt.Printf(" Username = %s\tUserID = %s\n",
 			string(cl.Properties.Username), cl.ID)
 	}
 }
 
 // OnConnectAuthenticate
 func (h TestHook) OnConnectAuthenticate(cl *mqtt.Client, pk packets.Packet) bool {
-	fmt.Println("\nHOOK: OnConnectAuthenticate")
+	fmt.Println("*** HOOK: OnConnectAuthenticate ***")
 	showClient(cl)
 	showPacket(pk)
 	return true
@@ -61,7 +61,7 @@ func (h TestHook) OnConnectAuthenticate(cl *mqtt.Client, pk packets.Packet) bool
 
 // OnSubscribe
 func (h TestHook) OnSubscribe(cl *mqtt.Client, pk packets.Packet) packets.Packet {
-	fmt.Println("\nHOOK: OnSubscribe")
+	fmt.Println("*** HOOK: OnSubscribe ***")
 	showClient(cl)
 	showPacket(pk)
 	return pk
@@ -69,7 +69,7 @@ func (h TestHook) OnSubscribe(cl *mqtt.Client, pk packets.Packet) packets.Packet
 
 // OnACLCheck
 func (h TestHook) OnACLCheck(cl *mqtt.Client, topic string, write bool) bool {
-	fmt.Println("\nHOOK: OnACLCheck")
+	fmt.Println("*** HOOK: OnACLCheck ****")
 	fmt.Printf(" topic: %v  write: %v\n", topic, write)
 	showClient(cl)
 
@@ -78,14 +78,14 @@ func (h TestHook) OnACLCheck(cl *mqtt.Client, topic string, write bool) bool {
 
 // OnSubscribed
 func (h TestHook) OnSubscribed(cl *mqtt.Client, pk packets.Packet, reasonCodes []byte) {
-	fmt.Println("\nHOOK: OnSubscribed")
+	fmt.Println("*** HOOK: OnSubscribed ***")
 	showClient(cl)
 	showPacket(pk)
 }
 
 // OnPublish
 func (h TestHook) OnPublish(cl *mqtt.Client, pk packets.Packet) (packets.Packet, error) {
-	fmt.Println("\nHOOK: OnSubscribed")
+	fmt.Println("*** HOOK: OnSubscribed ***")
 	showClient(cl)
 	showPacket(pk)
 	return pk, nil
@@ -94,7 +94,7 @@ func (h TestHook) OnPublish(cl *mqtt.Client, pk packets.Packet) (packets.Packet,
 // OnSelectSubscribers intercepts an incoming publish message and allows us to modify the list
 // of subscribers it will be sent out to.
 func (h TestHook) OnSelectSubscribers(subs *mqtt.Subscribers, pk packets.Packet) *mqtt.Subscribers {
-	fmt.Println("\nHOOK: OnSelectSubscribers")
+	fmt.Println("*** HOOK: OnSelectSubscribers ***")
 	showPacket(pk)
 	fmt.Printf("Subscribers: ")
 	for uID := range subs.Subscriptions {
