@@ -37,7 +37,7 @@ func showPacket(pk packets.Packet) {
 			pk.Connect.PasswordFlag, string(pk.Connect.Password))
 	case "Publish":
 		fmt.Printf(" Topic %s\n", pk.TopicName)
-		fmt.Printf(" Payload: %v", pk.Payload)
+		fmt.Printf(" Payload: %v", pk.PublishDecode(pk.Payload))
 	}
 }
 
