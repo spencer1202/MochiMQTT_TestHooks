@@ -1,6 +1,6 @@
-module github.com/spencer1202/MochiMQTT_TestHooks/broker_analysis
+module hookmap
 
-go 1.21
+go 1.24.4
 
 require github.com/mochi-mqtt/server/v2 v2.7.9
 
