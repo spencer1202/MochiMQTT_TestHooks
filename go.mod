@@ -1,4 +1,4 @@
-module github.com/spencer1202/MochiMQTT_TestHooks
+module github.com/spencer1202/mochi-mqtt-testhooks
 
 go 1.24.4
 
