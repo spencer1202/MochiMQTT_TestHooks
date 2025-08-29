@@ -1,4 +1,4 @@
-module broker_analysis
+module github.com/spencer1202/MochiMQTT_TestHooks
 
 go 1.24.4
 
