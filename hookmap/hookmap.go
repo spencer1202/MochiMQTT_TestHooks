@@ -2,6 +2,7 @@ package hookmap
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 
 	mqtt "github.com/mochi-mqtt/server/v2"
@@ -36,12 +37,11 @@ func showPacket(pk packets.Packet) {
 		fmt.Printf(" PasswordFlag %v\tPassword: %s\n",
 			pk.Connect.PasswordFlag, string(pk.Connect.Password))
 	case "Publish":
-		var out []byte
-		err := pk.PublishDecode(out)
-		if err != nil {
-			fmt.Println(" Error: couldn't decode payload.")
+		var payload map[string]any
+		if err := json.Unmarshal(pk.Payload, &payload); err != nil {
+			fmt.Printf("FAIL %v\n", err)
 		} else {
-			fmt.Printf(" Payload: %v", out)
+			fmt.Printf(" Payload: %+v", payload)
 		}
 		fmt.Printf(" Topic %s\n", pk.TopicName)
 	}
