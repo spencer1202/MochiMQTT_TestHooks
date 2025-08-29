@@ -41,7 +41,11 @@ func showPacket(pk packets.Packet) {
 		if err := json.Unmarshal(pk.Payload, &payload); err != nil {
 			fmt.Printf("FAIL %v\n", err)
 		} else {
-			fmt.Printf(" Payload: %+v", payload)
+			fmt.Printf(" Payload: ")
+			for key, value := range payload {
+				fmt.Printf("%v = %v\t", key, value)
+			}
+			fmt.Printf("\n")
 		}
 		fmt.Printf(" Topic %s\n", pk.TopicName)
 	}
