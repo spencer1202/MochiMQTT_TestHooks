@@ -36,8 +36,14 @@ func showPacket(pk packets.Packet) {
 		fmt.Printf(" PasswordFlag %v\tPassword: %s\n",
 			pk.Connect.PasswordFlag, string(pk.Connect.Password))
 	case "Publish":
+		var out []byte
+		err := pk.PublishDecode(out)
+		if err != nil {
+			fmt.Println(" Error: couldn't decode payload.")
+		} else {
+			fmt.Printf(" Payload: %v", out)
+		}
 		fmt.Printf(" Topic %s\n", pk.TopicName)
-		fmt.Printf(" Payload: %v", pk.PublishDecode(pk.Payload))
 	}
 }
 
